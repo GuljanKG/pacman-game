@@ -32,9 +32,32 @@ html, body {
 }
 
 .pacman {
-    background-color: red;
+    background-color: yellow;
     border-radius: 7.5px;
+    border-color: black;
+}
+
+.blinky {
+    background-color: red;
     border: none;
 }
 
+.pinky {
+    background-color: pink;
+    border: none;
+}
 
+.inky {
+    background-color: purple;
+    border: none;
+}
+
+.clyde {
+    background-color: orange;
+    border: none;
+}
+
+.scared-ghost {
+    background-color: aquamarine;
+    border: none;
+}
