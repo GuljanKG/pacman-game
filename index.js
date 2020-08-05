@@ -43,7 +43,7 @@ const layout = [
 
 //create board
 function createBoard() {
-    //for loop 
+  
     for (let i = 0; i < layout.length; i++) {
         //create a square 
         const square = document.createElement('div')
@@ -66,7 +66,7 @@ function createBoard() {
 }
 createBoard()
 
-//directions of the arrow keys:
+//arrow key directions:
 // down - 40
 // up key - 38
 // left - 37
@@ -142,11 +142,13 @@ function pacDotEaten() {
 function powerPelletEaten() {
     //if square pacman is in contains a power pellet
     if (squares[pacmanCurrentIndex].classList.contains('power-pellet')) {
+      
         squares[pacmanCurrentIndex].classList.remove('power-pellet')
-        score +=10
-       
-        ghosts.forEach(ghost => ghost.isScared = true)
      
+        score +=10
+        
+        ghosts.forEach(ghost => ghost.isScared = true)
+        
         setTimeout(unScareGhosts, 10000)    
     }
 }
@@ -190,56 +192,56 @@ function moveGhost(ghost) {
     console.log(direction)
     
     ghost.timerId = setInterval(function() {
-        
-        //if the next square does NOT contain a wall && does not contain a ghost
+   
+        //if the next square does NOT contain a wall and does not contain a ghost
         if (
             !squares[ghost.currentIndex + direction].classList.contains('wall') &&
             !squares[ghost.currentIndex + direction].classList.contains('ghost')
         ) {
-      //remove any ghost
+               
         squares[ghost.currentIndex].classList.remove(ghost.className)
         squares[ghost.currentIndex].classList.remove('ghost', 'scared-ghost')
-         //add direction to current Index
+        // //add direction to current Index
         ghost.currentIndex += direction
-        //add ghost class
+        // //add ghost class
         squares[ghost.currentIndex].classList.add(ghost.className)  
         squares[ghost.currentIndex].classList.add('ghost')  
         } else direction = directions[Math.floor(Math.random() * directions.length)]
 
-        //if the ghost is currently scared remove the ghost, take it to the starting point and give 100 points
+        //if the ghost is currently scared 
         if (ghost.isScared) {
             squares[ghost.currentIndex].classList.add('scared-ghost')
         }
         
+        //if the ghost is current scared AND pacman is on it remove a ghost, move it to start and give score 100
         if (ghost.isScared && squares[ghost.currentIndex].classList.contains('pacman')) {
-          squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
-          ghost.currentIndex = ghost.startIndex
-          score +=100
-          squares[ghost.currentIndex].className.add(ghost.className, 'ghost')
+            squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
+            ghost.currentIndex = ghost.startIndex
+            score +=100
+         
+            squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
         }
         checkForGameOver()
     }, ghost.speed )
 }
 
+//check for game over
 function checkForGameOver() {
-//if the square pacman is in contains a ghost && the square does not contain a scared ghost 
-if (
-  squares[pacmanCurrentIndex].classList.contains('ghost') && 
-  !square[pacmanCurrentIndex].classList.contains('scared-ghost')
-) {
-ghosts.forEach(ghost => clearInterval(ghost.timerId))
-
-document.removeEventListener('keyup', control)
-
-scoreDisplay.innerHTML = "You LOST. Sorry!"
-}
+    if (
+        squares[pacmanCurrentIndex].classList.contains('ghost') && 
+        !squares[pacmanCurrentIndex].classList.contains('scared-ghost') 
+     ) {
+    ghosts.forEach(ghost => clearInterval(ghost.timerId))
+    document.removeEventListener('keyup', control)  
+    scoreDisplay.innerHTML = 'You LOST. Sorry!'
+     }
 }
 
 //check for win
 function checkForWin() {
-  if (score === 250) {
-    ghosts.forEach(ghost => clearInterval(ghost.timerId))
-    document.removeEventListener('keyup', control)
-    scoreDisplay.innerHTML = "You WIN! Congrats!"
-  }
+    if (score === 274) {
+        ghosts.forEach(ghost => clearInterval(ghost.timerId))
+        document.removeEventListener('keyup', control)
+        scoreDisplay.innerHTML = 'You WON! Congrats!'
+    }
 }
